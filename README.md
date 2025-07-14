@@ -86,7 +86,6 @@ user-service-express/
 │   ├── utils/               # JWT утилиты
 │   ├── validators/          # Валидаторы данных
 │   ├── app.ts               # Приложение Express
-│   └── server.ts            # Точка входа
 ├── global.d.ts              # Расширение запроса пользовательскими данными
 ├── swagger.yaml             # OpenAPI документация
 ├── tsconfig.json            # Конфигурация TypeScript
@@ -98,7 +97,7 @@ user-service-express/
 
 ## Примечание
 
-- Что бы зарегистрировать админа - введите email указанный в .env.ADMIN_EMAIL
+- Чтобы зарегистрировать админа, при регистрации введите email указанный в .env.ADMIN_EMAIL
 
 - Все запросы, кроме регистрации и входа, требуют `Bearer`-токена в заголовке:
   ```

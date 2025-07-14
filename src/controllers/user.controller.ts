@@ -38,7 +38,7 @@ export const register = async (req: Request, res: Response) => {
 
 export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ where: { email } }) as any;
+  const user = await User.findOne({ where: { email } });
   
   if (!user || !await bcrypt.compare(password, user.password)) {
     return res.status(401).json({ error: 'Invalid credentials' });
@@ -50,13 +50,13 @@ export const login = async (req: Request, res: Response) => {
 
 export const getUser = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const userReq = req.User as UserInRequest;
+  const userReq: UserInRequest = req.User;
 
   if (userReq.Role !== 'admin' && userReq.ID !== parseInt(id)) {
     return res.status(403).json({ error: 'Forbidden' });
   }
 
-  const userModel = await User.findByPk(id) as any;
+  const userModel = await User.findByPk(id);
 
   if (userModel) {
     const user = new UserDTO(
@@ -78,7 +78,7 @@ export const getUsers = async (_req: Request, res: Response) => {
   const userModels = await User.findAll();
 
   var users: Array<UserDTO> = [];
-  for (const userModel of userModels as any) {
+  for (const userModel of userModels) {
     let user = new UserDTO(
       userModel.id,
       userModel.fullName,
@@ -95,13 +95,13 @@ export const getUsers = async (_req: Request, res: Response) => {
 
 export const blockUser = async (req: Request, res: Response) => {
   const { id } = req.params;
-  const userReq = req.User as UserInRequest;
+  const userReq: UserInRequest = req.User;
 
   if (userReq.Role !== 'admin' && userReq.ID !== parseInt(id)) {
     return res.status(403).json({ error: 'Forbidden' });
   }
   
-  const user = await User.findByPk(id) as any;
+  const user = await User.findByPk(id);
   if (!user) return res.status(404).json({ error: 'User not found' });
   user.isActive = false;
   await user.save();

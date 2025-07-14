@@ -1,7 +1,16 @@
 import { DataTypes, Model  } from 'sequelize';
 import sequelize from '../config/db.js';
+import { Role } from '../types/role.type.js';
 
-class UserModel extends Model {}
+class UserModel extends Model {
+  declare id: number;
+  declare fullName: string;
+  declare birthDate: string;
+  declare email: string;
+  declare password: string;
+  declare role: Role;
+  declare isActive: boolean;
+}
 
 UserModel.init({
   id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
